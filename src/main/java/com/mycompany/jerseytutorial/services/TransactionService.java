@@ -81,5 +81,24 @@ public Transaction createWithdrawal(double amount, long creditCardNo){
         }
     
         return n;
-    }      
+    } 
+    public String createTransfer(double amount, long accountNoTo,long accountNoFrom){
+        long creditCardNoFrom = this.findCreditCardFromAccount(accountNoFrom);
+        long creditCardNoTo = this.findCreditCardFromAccount(accountNoTo);
+        if(creditCardNoFrom !=0 && creditCardNoTo !=0){
+            this.createWithdrawal(amount, creditCardNoFrom);
+            this.createLodgement(amount, creditCardNoTo);
+            return "Transfer Succesful";
+        }
+        return "Transfer Declined";
+    }
+    public long findCreditCardFromAccount(long accountNo){
+        for(int i = 0; i<list.size(); i++){
+            if(list.get(i).getAccountNo()== accountNo){
+                return accountNo;
+            }
+                    
+        }
+        return 0;
+    }
 }

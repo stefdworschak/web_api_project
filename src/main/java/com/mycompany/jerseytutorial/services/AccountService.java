@@ -45,7 +45,7 @@ public class AccountService {
         return a;
     }
     
-    public String getBalance(double amount, long accountNo){
+    public String getBalance(long accountNo){
         for(int i=0;i <list.size(); i++){
            Account a = (Account) list.get(i);
             if(a.getAccountNo()== accountNo){
