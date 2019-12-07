@@ -31,11 +31,11 @@ public class AccountService {
         return a;
     }
     
-    public Account addNewAccount(String email){
+    public Account addNewAccount(Customer cs){
         Account a = this.createAccount();
         for(int i=0;i <c_list.size(); i++){
             Customer c = (Customer) c_list.get(i);
-            if(c.getEmail()== email){
+            if(c.getEmail()== cs.getEmail()){
                 List<Account> c_account = c.getAccounts();
                 c_account.add(a);
                 c.setAccounts(c_account);
