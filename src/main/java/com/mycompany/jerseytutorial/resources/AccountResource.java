@@ -42,6 +42,9 @@ public class AccountResource {
     public Account addAccount(Customer c){
         return as.addNewAccount(c);
     }
-    
+    @Path("/{accountNo}/transactions")
+    public TransactionResource getTransactionResource(){
+        return new TransactionResource();
+    }    
     
 }

@@ -41,4 +41,5 @@ public class CustomerResource {
     public AccountResource getAccountResource(){
         return new AccountResource();
     }
+    
 }

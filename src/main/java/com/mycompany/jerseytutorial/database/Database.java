@@ -65,7 +65,7 @@ public class Database {
             accountDB.add(a5);
             accountDB.add(a6);
 
-            Customer c1 = new Customer ("Stefan Dworschak", "1 Mayor Square, Dublin","sdyahooie", "Passport", customerDB.size()+1, accountDB);
+            Customer c1 = new Customer ("Stefan Dworschak", "1 Mayor Square, Dublin","sd@yahoo.ie", "Passport", customerDB.size()+1, accountDB);
             Customer c2 = new Customer ("Patrick Moran", "10 Dublin Road, Meath","pm@yahoo.ie", "Licence", customerDB.size()+1, accountDB);
             Customer c3 = new Customer ("John Hughes", "5 High Street, Galway","jh@yahoo.ie", "Passport", customerDB.size()+1, accountDB);
             Customer c4 = new Customer ("Karen Smith", "51 Patrick Street, Cork","ks@yahoo.ie", "Licence", customerDB.size()+1, accountDB);

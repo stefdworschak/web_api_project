@@ -10,6 +10,7 @@ import com.mycompany.jerseytutorial.models.Account;
 import com.mycompany.jerseytutorial.models.Customer;
 import com.mycompany.jerseytutorial.models.NumberGen;
 import com.mycompany.jerseytutorial.models.Transaction;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -101,4 +102,16 @@ public Transaction createWithdrawal(double amount, long creditCardNo){
         }
         return 0;
     }
+    public List<Transaction> getTransactions(String email,long accountNo){
+        AccountService as = new AccountService();
+        CustomerService cs = new CustomerService();
+        Account a = as.getAccount(accountNo);
+        Customer c = cs.getCustomer(email);
+        if(a!=null && c!=null){
+            return a.getTransactions();
+        }
+        List<Transaction> tl = new ArrayList<>();
+        return tl;
+        
+    }    
 }

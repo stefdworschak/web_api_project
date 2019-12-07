@@ -61,5 +61,14 @@ public class AccountService {
         return c.getAccounts();
         
     }
+    public Account getAccount(long accountNo){
+        for(int i =0; i<list.size(); i++){
+            if(list.get(i).getAccountNo()==(accountNo)){
+                return list.get(i);
+            }
+        }
+        return null;
+        
+    }    
     
 }
