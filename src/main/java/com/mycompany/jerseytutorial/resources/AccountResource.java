@@ -8,6 +8,7 @@ package com.mycompany.jerseytutorial.resources;
 import com.mycompany.jerseytutorial.models.Account;
 import com.mycompany.jerseytutorial.models.Customer;
 import com.mycompany.jerseytutorial.services.AccountService;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -27,6 +28,11 @@ public class AccountResource {
     AccountService as = new AccountService();
     
     @GET
+    public List<Account> getAccounts(@PathParam("email") String email){
+        System.out.println(email);
+        return as.getAccounts(email);
+    }    
+    @GET
     @Path("/{accountNo}/balance")
     public String getBalance(@PathParam("accountNo") long accountNo) {
         return as.getBalance(accountNo);
@@ -36,5 +42,6 @@ public class AccountResource {
     public Account addAccount(Customer c){
         return as.addNewAccount(c);
     }
+    
     
 }

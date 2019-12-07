@@ -55,4 +55,11 @@ public class AccountService {
         return "Account not found";
     }
     
+    public List<Account> getAccounts(String email){
+        CustomerService cs = new CustomerService();
+        Customer c = cs.getCustomer(email);
+        return c.getAccounts();
+        
+    }
+    
 }
