@@ -31,7 +31,15 @@ public class AccountResource {
     public List<Account> getAccounts(@PathParam("email") String email){
         System.out.println(email);
         return as.getAccounts(email);
-    }    
+    } 
+    
+    @GET
+    @Path("/{accountNo}")
+    public Account getAccount(@PathParam("accountNo") long accountNo){
+        return as.getAccount(accountNo);
+    } 
+    
+    
     @GET
     @Path("/{accountNo}/balance")
     public String getBalance(@PathParam("accountNo") long accountNo) {

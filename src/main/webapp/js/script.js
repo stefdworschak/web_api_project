@@ -175,6 +175,8 @@ function loadCustomers(){
             $('#customer_select').html(options.toString());
             $('#account_select').html(acc_options.toString());
             $('#cc_select').html(cc_options.toString());
+            $('.balance-alert').html(`Your current balance is <span id="show_balance">&euro;${data[0].accounts[0].balance}</span>`);
+            
         },
         failure: function(err){
             console.log(err);
@@ -183,7 +185,7 @@ function loadCustomers(){
 }
 
 function loadAccounts(){
-    $('#customer_select').change(function (){
+    $('#customer_select').change(function (){       
         const email = $('#customer_select').val();
         $.ajax({ 
             url : `http://localhost:49000/api/customers/${email}/accounts`,
@@ -195,26 +197,53 @@ function loadAccounts(){
                 let cc_options = data.map(x => `<option>${x.creditCardNo}</option>`);
                 $('#account_select').html(acc_options.toString());
                 $('#cc_select').html(cc_options.toString());
-                
                 let selected_acc = $('#account_select2').val()
-                
                 let acc_options2 = acc_options.filter(x => x !== `<option>${selected_acc}</option>`);
                 console.log(acc_options2);
                 $('#account_select2').html(acc_options2.toString());
-                
+                $('.balance-alert').html(`Your current balance is <span id="show_balance">&euro;${data[0].balance}</span>`);
+     
                 $('#account_select').change(function(){
+                    let new_account_num = $(this);
+                    let new_account = data.slice(0).filter(x => x.accountNo);
+                    $('.balance-alert').html(`Your current balance is <span id="show_balance">&euro;${new_account.balance}</span>`);
                     let options = $(this).children();
-                    let acc_options = options.map(x => `<option>${x.val()}</option>`);
-                    let selected_acc = $('#account_select2').val()
-                    let acc_options2 = acc_options.filter(x => x != `<option>${selected_acc}</option>`);
-                    $('#account_select2').html(acc_options2.toString());
+                    if($('#account_select2').length > 0){
+                        let acc_options = options.map(x => `<option>${x.val()}</option>`);
+                        let selected_acc = $('#account_select2').val()
+                        let acc_options2 = acc_options.filter(x => x != `<option>${selected_acc}</option>`);
+                        $('#account_select2').html(acc_options2.toString());
+                    }
+                    
                 })
+                
             },
             failure: function(err){
                 console.log(err);
             }
         })
     });
+    
+    $('#account_select').change(function(){
+        const email = $('#customer_select').val();
+        const account_num = $(this).val();
+        $('.balance-alert').html(`
+            <div class="spinner-border text-info" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>`);
+        $.ajax({ 
+            url : `http://localhost:49000/api/customers/${email}/accounts/${account_num}`,
+            method : 'GET',
+            contentType : 'application/json',
+            success: function(res){
+                let data = JSON.parse(JSON.stringify(res));
+                $('.balance-alert').html(`Your current balance is <span id="show_balance">&euro;${data.balance}</span>`);
+            },
+            failure:function(err){
+                
+            }
+        })
+    })   
 }
 
 function addAccount(){
@@ -245,6 +274,7 @@ function addAccount(){
                             </div>
                         `;
                         $('#customer_success').html(div);
+                        $('.balance-alert').html(`Your current balance is <span id="show_balance">&euro;100</span>`);
                     },
                     failure: function(err){
                         console.log(err)
