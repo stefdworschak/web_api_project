@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ **********************************************************************************************
+ *** The codebase comes originally from the MyBlogSolutionWithCommentsAndDBStubFile lab file***
+ ********************************************************************************************** 
  */
 package com.mycompany.jerseytutorial.services;
 
