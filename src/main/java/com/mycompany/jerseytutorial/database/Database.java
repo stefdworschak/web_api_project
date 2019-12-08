@@ -51,12 +51,12 @@ public class Database {
             transactionDB.add(t6);
             
             
-            Account a1 = new Account(1979, 0001, 5000,1234567,transactionDB);
-            Account a2 = new Account(1980, 0002, 5000,2345678,transactionDB);
-            Account a3 = new Account(1981, 0003, 5000,3456789,transactionDB);
-            Account a4 = new Account(1982, 0004, 5000,4567890,transactionDB);
-            Account a5 = new Account(1983, 0005, 5000,5678901,transactionDB);
-            Account a6 = new Account(1984, 0006, 5000,6789012,transactionDB);
+            Account a1 = new Account(1979, 4567, 5000,1234567,transactionDB);
+            Account a2 = new Account(1980, 5678, 5000,2345678,transactionDB);
+            Account a3 = new Account(1981, 6789, 5000,3456789,transactionDB);
+            Account a4 = new Account(1982, 7890, 5000,4567890,transactionDB);
+            Account a5 = new Account(1983, 8901, 5000,5678901,transactionDB);
+            Account a6 = new Account(1984, 9012, 5000,6789012,transactionDB);
             
             accountDB.add(a1);
             accountDB.add(a2);

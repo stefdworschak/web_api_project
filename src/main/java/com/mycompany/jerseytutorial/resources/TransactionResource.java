@@ -16,6 +16,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -25,14 +26,16 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class TransactionResource {
- TransactionService ts = new TransactionService();   
-@GET
+    
+    TransactionService ts = new TransactionService();   
+    @GET
     public List<Transaction> getTransactions(@PathParam("email") String email, @PathParam("accountNo") long accountNo){
-        System.out.println(accountNo+ email);
         return ts.getTransactions(email, accountNo);
     }
     
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/lodgement")
     public Transaction createLodgement(Account a){
         double amount = a.getBalance();
@@ -46,12 +49,13 @@ public class TransactionResource {
         long creditCardNo = a.getCreditCardNo();
         return ts.createWithdrawal(amount, creditCardNo);
     }
+    
     @POST
-    public String createTransfer(List<Account> al){
+    public List<Transaction> createTransfer(List<Account> al){
         double amount = al.get(0).getBalance();
-        long creditCardNoFrom = al.get(1).getCreditCardNo();
-        long creditCardNoTo = al.get(0).getCreditCardNo();
-        return ts.createTransfer(amount, creditCardNoTo,creditCardNoFrom );
+        long accountNoFrom = al.get(1).getAccountNo();
+        long accountNoTo = al.get(0).getAccountNo();
+        return ts.createTransfer(amount, accountNoTo,accountNoFrom);
     }    
     
 }

@@ -11,7 +11,9 @@ import com.mycompany.jerseytutorial.models.Customer;
 import com.mycompany.jerseytutorial.models.NumberGen;
 import com.mycompany.jerseytutorial.models.Transaction;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -26,13 +28,14 @@ public class TransactionService {
   
 
 public Transaction createLodgement(double amount, long creditCardNo){
-    Transaction n = new Transaction("Credit", "Lodgement", amount);
+        Transaction n = new Transaction("Credit", "Lodgement", 0.0);
         t_list.add(n);
         Account a = null;
         for(int i =0; i<list.size(); i++){
             a = (Account) list.get(i);
-            if(a.getCreditCardNo()== creditCardNo){
+            if(a.getCreditCardNo() == creditCardNo){
                 List<Transaction> t = a.getTransactions();
+                n.setPostTransBalance(a.getBalance() + amount);
                 t.add(n);
                 a.setBalance(a.getBalance()+ amount);
                 a.setTransactions(t);
@@ -48,6 +51,7 @@ public Transaction createLodgement(double amount, long creditCardNo){
                         c_account.add(a);
                         c.setAccounts(c_account);
                         c_list.set(j, c);
+                        return n;
                 }
             }
         }
@@ -55,15 +59,18 @@ public Transaction createLodgement(double amount, long creditCardNo){
         return n;
     }    
 public Transaction createWithdrawal(double amount, long creditCardNo){
-    Transaction n = new Transaction("Credit", "Lodgement", amount);
+    Transaction n = new Transaction("Debit", "Withdrawal", 0);
         t_list.add(n);
         Account a = null;
         for(int i =0; i<list.size(); i++){
             a = (Account) list.get(i);
-            if(a.getCreditCardNo()== creditCardNo){
+            System.out.println(a.getCreditCardNo());
+            System.out.println(creditCardNo);   
+            if(a.getCreditCardNo() == creditCardNo){
                 List<Transaction> t = a.getTransactions();
+                n.setPostTransBalance(a.getBalance() - amount);
                 t.add(n);
-                a.setBalance(a.getBalance()- amount);
+                a.setBalance(a.getBalance() - amount);
                 a.setTransactions(t);
                 list.set(i, a);
             }
@@ -77,31 +84,37 @@ public Transaction createWithdrawal(double amount, long creditCardNo){
                         c_account.add(a);
                         c.setAccounts(c_account);
                         c_list.set(j, c);
+                        return n;
                 }
             }
         }
     
         return n;
     } 
-    public String createTransfer(double amount, long accountNoTo,long accountNoFrom){
+    public List<Transaction> createTransfer(double amount, long accountNoTo,long accountNoFrom){
         long creditCardNoFrom = this.findCreditCardFromAccount(accountNoFrom);
         long creditCardNoTo = this.findCreditCardFromAccount(accountNoTo);
+        List<Transaction> tl = new ArrayList<>();
+        
         if(creditCardNoFrom !=0 && creditCardNoTo !=0){
-            this.createWithdrawal(amount, creditCardNoFrom);
-            this.createLodgement(amount, creditCardNoTo);
-            return "Transfer Succesful";
+            Transaction from = this.createWithdrawal(amount, creditCardNoFrom);
+            Transaction to = this.createLodgement(amount, creditCardNoTo);
+            tl.add(to);
+            tl.add(from);
+            return tl;
         }
-        return "Transfer Declined";
+        return tl;
     }
     public long findCreditCardFromAccount(long accountNo){
         for(int i = 0; i<list.size(); i++){
-            if(list.get(i).getAccountNo()== accountNo){
-                return accountNo;
-            }
-                    
+            Account a = list.get(i);
+            if((long) a.getAccountNo() == accountNo){
+                return a.getCreditCardNo();
+            }         
         }
         return 0;
     }
+    
     public List<Transaction> getTransactions(String email,long accountNo){
         AccountService as = new AccountService();
         CustomerService cs = new CustomerService();

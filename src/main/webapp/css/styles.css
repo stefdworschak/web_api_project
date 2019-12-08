@@ -1,0 +1,63 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 07-Dec-2019, 14:18:50
+    Author     : stefd
+*/
+
+#customerForm, #transferForm, #lodgeWithdrawForm, #balanceForm, .balance_display {
+    margin-left: auto!important;
+    margin-right: auto!important;
+    
+}
+
+.alert.alert-success {
+    width: 50%!important;
+    margin-top: 20px!important;
+    margin-left: auto!important;
+    margin-right: auto!important;
+}
+
+.jumbotron {
+    background:white!important;
+    margin-top:0px!important;
+    margin-bottom:0px!important;
+    padding-left:0px;
+    padding-top:30px;
+    padding-bottom: 10px
+}
+
+form {
+    width:80%;
+}
+
+.hidden {
+    display:none;
+}
+
+.balance-alert {
+    padding:100px;
+    font-size: 2rem;
+}
+#show_balance {
+    font-weight: bold;
+}
+#customer-select-li {
+    margin-left:auto;
+    
+}
+.navbar-nav {
+    width:100%;
+}
+#customer_select{
+    display:inline;
+}
+
+@media only screen and (max-width: 990px) {
+    #customer-select-li {
+       width:100%;
+    }
+}

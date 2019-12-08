@@ -16,7 +16,6 @@ public class Transaction {
     private String type;
     private Date transactionDate;
     private String description;
-    private double amount;
     private double postTransBalance;
 
     public Transaction(String type, String description, double postTransBalance) {
@@ -48,14 +47,6 @@ public class Transaction {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-    
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
     }
 
     public double getPostTransBalance() {

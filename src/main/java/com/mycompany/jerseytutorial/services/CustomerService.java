@@ -40,6 +40,10 @@ public class CustomerService {
         }
         return null;
     }
+    
+    public List<Customer> getCustomers(){
+        return list;
+    }
    
    
 }

@@ -7,6 +7,7 @@ package com.mycompany.jerseytutorial.resources;
 
 import com.mycompany.jerseytutorial.models.Customer;
 import com.mycompany.jerseytutorial.services.CustomerService;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -30,13 +31,18 @@ public class CustomerResource {
     public Customer createCustomer(Customer c){
         return cs.createCustomer(c);   
     }
-
+    
+    @GET
+    public List<Customer> getCustomers(){
+        return cs.getCustomers();
+    }
+    
     @GET
     @Path("/{email}")
     public Customer getCustomer(@PathParam("email") String email){
         System.out.println(email);
         return cs.getCustomer(email);
-        }
+    }
     @Path("/{email}/accounts")
     public AccountResource getAccountResource(){
         return new AccountResource();
